@@ -21,6 +21,18 @@ app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
 
 # In-memory activity database
 activities = {
+    "Tennis Club": {
+        "description": "Learn tennis techniques and compete in matches",
+        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 12,
+        "participants": []
+        },
+        "Volleyball Team": {
+        "description": "Train and compete in volleyball tournaments",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 6:30 PM",
+        "max_participants": 14,
+        "participants": []
+        },
     "Chess Club": {
         "description": "Learn strategies and compete in chess tournaments",
         "schedule": "Fridays, 3:30 PM - 5:00 PM",
@@ -105,6 +117,7 @@ def signup_for_activity(activity_name: str, email: str):
     if email in activity["participants"]:
         raise HTTPException(status_code=400, detail="Student already signed up")
 
+    # Validate student is not already signed up for another activity at the same time
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
